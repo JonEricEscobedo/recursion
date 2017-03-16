@@ -5,15 +5,15 @@
 
 var stringifyJSON = function(obj) {
 
-  	// For objects that are strings
+  // For string primitives
   if (typeof obj === 'string') {																		
     return  '"' + obj + '"';
 
-    // For objects that are numbers
+    // For number or boolean primitives
   } else if (typeof obj === 'number' || typeof obj === 'boolean') { 
     return obj.toString();
     
-    // For objects that are null
+    // For null
   } else if (obj === null) {
     return 'null';
 
