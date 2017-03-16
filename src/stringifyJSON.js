@@ -19,6 +19,18 @@ var stringifyJSON = function(obj) {
   		result.push(stringifyJSON(element));
   	});
     return '[' + result + ']';
+  } else if (typeof obj === 'object') {
+  	var newStr = '';
+
+    if (Object.keys(obj).length === 0) {
+      return '{}';
+    }
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        newStr += '{"' + key + '":"' + obj[key] + '"}';
+      }
+    }
+    return newStr;
   }
   
   
