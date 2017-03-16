@@ -5,7 +5,7 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
-  console.log(obj);
+  //console.log(obj);
 
   if (typeof obj === 'string') {
     return  '"' + obj + '"';
@@ -20,17 +20,23 @@ var stringifyJSON = function(obj) {
   	});
     return '[' + result + ']';
   } else if (typeof obj === 'object') {
-  	var newStr = '';
+  	var newStr = [];
 
     if (Object.keys(obj).length === 0) {
       return '{}';
-    }
-    for (var key in obj) {
+    } else {
+    	for (var key in obj) {
       if (obj.hasOwnProperty(key)) {
-        newStr += '{"' + key + '":"' + obj[key] + '"}';
+      	console.log(obj)
+        //newStr += '{"' + key + '":"' + obj[key] + '"}';
+        //newStr += '{' + stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + '}';
+        //newStr += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
+        newStr.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]))
       }
     }
-    return newStr;
+    return '{' + newStr + '}';
+    }
+    
   }
   
   
