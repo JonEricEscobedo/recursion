@@ -4,21 +4,30 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
-  //console.log(obj);
 
-  if (typeof obj === 'string') {
+  	// For objects that are strings
+  if (typeof obj === 'string') {																		
     return  '"' + obj + '"';
-  } else if (typeof obj === 'number' || typeof obj === 'boolean') {
+
+    // For objects that are numbers
+  } else if (typeof obj === 'number' || typeof obj === 'boolean') { 
     return obj.toString();
+    
+    // For objects that are null
   } else if (obj === null) {
     return 'null';
+
+    // For objects that are arrays
   } else if (Array.isArray(obj)) {
   	var result = [];
+
   	obj.forEach(function(element) {
-  		result.push(stringifyJSON(element));
+  		result.push(stringifyJSON(element));  // Recursive case
   	});
+
     return '[' + result + ']';
+
+    // For objects that are objects
   } else if (typeof obj === 'object') {
   	var newStr = [];
 
@@ -26,18 +35,13 @@ var stringifyJSON = function(obj) {
       return '{}';
     } else {
     	for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-      	console.log(obj)
-        //newStr += '{"' + key + '":"' + obj[key] + '"}';
-        //newStr += '{' + stringifyJSON(key) + ':' + stringifyJSON(obj[key]) + '}';
-        //newStr += stringifyJSON(key) + ':' + stringifyJSON(obj[key]);
-        newStr.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]))
-      }
-    }
+	      if (obj.hasOwnProperty(key) && typeof obj[key] !== 'function' && obj[key] !== undefined) {
+	        newStr.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]))  // Recursive case
+	      }
+    	}
+
     return '{' + newStr + '}';
-    }
-    
+    } 
   }
-  
   
 };
