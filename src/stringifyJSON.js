@@ -14,7 +14,11 @@ var stringifyJSON = function(obj) {
   } else if (obj === null) {
     return 'null';
   } else if (Array.isArray(obj)) {
-    return '[' + obj + ']';
+  	var result = [];
+  	obj.forEach(function(element) {
+  		result.push(stringifyJSON(element));
+  	});
+    return '[' + result + ']';
   }
   
   
