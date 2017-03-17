@@ -23,17 +23,38 @@ var getElementsByClassName = function(className) {
   var result = [];
   var searchArea = document.body
 
-  function findClassName(element) {
-  	if (element.classList.length > 0) {
-  		for (var idx = 0; idx < element.classList.length; idx++) {
-  			if (element.classList[idx] === className) {
-  				result.push(element);
-  			}
-  		}
-  	}
-  }
+	  function findClassName(element) {
+	  	console.log('inside func: ', element);
 
+	  	// Check to see if <element> even has a classList
+	    if (element.classList !== undefined && element.classList.length > 0) {
+	      console.log('inside func w/ class list: ', element.classList);
+
+	      // Iterate through <element>.classList and look for a match
+	      for (var idx = 0; idx < element.classList.length; idx++) {
+
+	      	// If <element>.classList === className, push to result arr
+	        if (element.classList[idx] === className) {
+	          console.log('FOUND... pushing...: ', element)
+	          result.push(element);
+	        }
+	      }
+	    } else {
+	    	// If no classList exists for <element>, log to console
+	      console.log('Nothing here...')
+	    }
+	    
+	    // Now recurse through the rest of <element> by calling childNodes
+	    for (var idx = 0; idx < element.childNodes.length; idx++) {
+	    	console.log('on node ', idx, ' out of ', element.childNodes.length-1, ' nodes');
+	      console.log('RECURSE... next: ', element.childNodes[idx])
+	      findClassName(element.childNodes[idx]);
+	    }
+	  }
+  console.log('outside func: ', searchArea);
+
+  // Send the whole <body> through findClassName
   findClassName(searchArea);
-  console.log(result);
+  
   return result;
 };
